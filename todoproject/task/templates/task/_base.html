@@ -6,6 +6,26 @@
     <title>{% block title %}{% endblock title %}| TaskApp</title>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'users:logout-user' %}">LOGOUT</a>
+            </li>
+            <li>
+                <a href="">TASKS</a>
+            </li>
+            <li>
+                <a href="">ACHIEVEMENTS</a>
+            </li>
+            <li>
+                <a href="">ANALYTICS & REPORTING</a>
+            </li>
+            <li>
+                <a href="">NOTIFICATIONS</a>
+            </li>
+
+        </ul>
+    </nav>
     {% block content %}
     {% endblock content %}
 </body>

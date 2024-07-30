@@ -9,7 +9,7 @@ The **Task Management System** is a web-based application that allows users to c
 The is a comprehensive web application designed to help individuals and teams manage their tasks efficiently. The system provides a user-friendly interface to create, organize, prioritize, and track tasks, aiming to enhance productivity and streamline workflow management. 
 
 ### Goals
-- **Task Organization**: Allow users to categorize and tag tasks for better organization.
+- **Task Organization**: Allow users to categorize for better organization.
 - **Task Tracking**: Enable users to set due dates, priorities, and receive notifications to ensure timely completion of tasks.
 - **Productivity Insights**: Offer analytics and reporting features to provide insights into task completion rates, time spent, and overall productivity.
 - **Integration Capabilities**: Provide a RESTful API for integration with other tools and third-party applications.
@@ -20,7 +20,7 @@ The Task Management System is intended to assist users in managing their daily t
 
 ### Key Features
 - **User Authentication and Roles**: Secure user registration, login, and role-based access control.
-- **Task Management**: Create, edit, delete, and view tasks with the ability to categorize and tag them.
+- **Task Management**: Create, edit, delete, and view tasks with the ability to categorize them.
 - **Priority and Due Dates**: Set priorities and due dates to help users focus on important tasks.
 - **Notifications**: Receive email and SMS notifications for upcoming deadlines and task updates.
 - **Analytics and Reporting**: Visualize productivity data with charts and generate reports on tasks and time management.
@@ -28,7 +28,6 @@ The Task Management System is intended to assist users in managing their daily t
 
 ### Target Audience
 - **Individual Users**: People looking to manage their personal tasks and improve productivity.
-- **Teams and Organizations**: Teams needing a collaborative task management tool with features for role management and task tracking.
 - **Developers and Integrators**: Users or organizations seeking to integrate task management functionalities into their own applications or systems.
 
 ### Project Scope
@@ -150,6 +149,12 @@ Allow users to configure their notification preferences.
 ### Gamification Elements
 
 Introduce gamification by adding achievements, points, or badges for completing tasks or meeting goals.
+The achievement system is designed to reward users for completing specific actions, like finishing tasks, with points and badges. This motivates users by recognizing their accomplishments and encouraging further engagement.
+
+### Customizable Task Views:
+
+Provide different views for tasks, such as lists, calendars, or kanban boards.
+Let users customize their task views and layout preferences.
 
 ## Non-Functional Requirements
 Performance
