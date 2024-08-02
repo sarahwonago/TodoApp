@@ -1,0 +1,17 @@
+{% extends 'task/_base.html' %}
+
+{% block title %}Tasks{% endblock title %}
+
+{% block content %} 
+    <h2>Tasks in {{category}} Category</h2>
+    <div>
+        <ul>
+            {% for task in tasks %}
+            <li><a href="">{{task.name}}</a></li>
+            {%empty%}
+            <p>No tasks</p>
+            {%endfor%}
+        </ul>
+    </div>
+
+{% endblock content %}

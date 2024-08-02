@@ -1,0 +1,13 @@
+{% extends 'task/_base.html' %}
+
+{% block title %}Add Task{% endblock title %}
+
+{% block content %} 
+    <h1>Add Task to Category "{{ category.name }}"</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Task</button>
+    </form>
+
+{% endblock content %}
