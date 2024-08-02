@@ -3,5 +3,25 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %} 
-    <h2>Welcome to Todo App</h2>
+    <h2>Welcome {{user}} to Todo App</h2>
+    <div>
+        <h3>Default Categories</h3>
+        <ul>
+            {% for def_cat in default_categories%}
+            <li>{{def_cat.name}} <span><button><a href="{% url 'task:add_task' def_cat.id %}">Add Tasks</a></button> <button><a href="{% url 'task:category_tasks' def_cat.id %}">View Tasks</a></button></span></li>
+            <p></p>
+            {%endfor%}
+        </ul>
+    </div>
+
+    <div>
+        <h3>My Categories</h3>
+        <ul>
+            {% for my_cat in user_categories%}
+            <li>{{my_cat.name}} <span><button><a href="{% url 'task:add_task' my_cat.id %}">Add Tasks</a></button> <button><a href="{% url 'task:category_tasks' my_cat.id %}">View Tasks</a></button></span></li>
+            {%empty%}
+            <li>No categories specified</li>
+            {%endfor%}
+        </ul>
+    </div>
 {% endblock content %}
