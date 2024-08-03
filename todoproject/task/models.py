@@ -49,6 +49,9 @@ class Task(models.Model):
     def __str__(self):
         return self.name
     
+    def get_absolute_url(self):
+        return reverse('task:task-detail', args=[str(self.id)])
+    
     
 class Achievement(models.Model):
     class Meta:

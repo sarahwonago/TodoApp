@@ -8,10 +8,11 @@
         <ul>
             {% for task in tasks %}
             <li>
-                {{ task.name }} - {{ task.description }} - Due: {{ task.due_date }}
+                <a href="{{task.get_absolute_url}}">{{ task.name }} </a>- {{ task.description }} - Due: {{ task.due_date }}
                 <a href="">
                     {% if task.is_done %} Mark as Undone {% else %} Mark as Done {% endif %}
                 </a>
+                
                 </li>
             {%empty%}
             <p>No tasks</p>

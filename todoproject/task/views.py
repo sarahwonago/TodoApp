@@ -130,11 +130,40 @@ def toggle_task_completion(request, task_id):
 
     return redirect('category_tasks', category_id=task.category.id)
 
-def detail_task(request):
-    pass
+@login_required
+def task_detail(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    context = {
+        "task":task,
+    }
+    return render(request, "task/task_detail.html", context)
 
-def update_task(request):
-    pass
+@login_required
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect(task.get_absolute_url())
+    else:
+        form = TaskForm(instance=task)
+    
+    context = {
+        "form":form,
+        "task":task,
+    }
+    return render(request, "task/edit_task.html", context)
 
-def delete_task(request):
-    pass
+@login_required
+def delete_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    category_id = task.category.id
+    if request.method == 'POST':
+        task.delete()
+        return redirect("task:category_tasks", category_id=category_id)
+    
+    context = {
+        "task":task,
+    }
+    return render(request, "task/delete_task.html", context)
