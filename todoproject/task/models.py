@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -16,6 +17,9 @@ class TaskCategory(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('task:category-detail', args=[str(self.id)])
 
 
 class Task(models.Model):
@@ -52,11 +56,17 @@ class Achievement(models.Model):
 
     name = models.CharField(max_length=200)
     description = models.TextField()
-    points = models.PositiveIntegerField()
+    points_required = models.PositiveIntegerField()
     badge = models.ImageField(blank=True, null=True, upload_to='badges/')
 
     def __str__(self):
         return self.name
+    
+    # First Task Added, points 10, Description: "Congratulations on adding your first task! Keep going to build your library."
+    # First Task Completed, points 10, Description: "Congratulations on finishing your first task! Keep going to build your library."
+    # Task Streak, points 30, Description: "You've completed tasks for 7 consecutive days. You're on a streak!"
+    # Task Master, points 30, Description: "You've completed 50 tasks. You're mastering your to-do list!"
+
     
 class UserAchievement(models.Model):
     class Meta:

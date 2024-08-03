@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 
 from .forms import TaskCategoryForm, TaskForm
-from .models import Task, TaskCategory
+from .models import Task, TaskCategory, UserPoints, Achievement, UserAchievement
 
 @login_required
 def home_view(request):
@@ -42,9 +42,10 @@ def add_task(request, category_id):
             task.user = user
             task.category = category
             task.save()
-            return redirect("task:home")
-        
-    form = TaskForm()
+            return redirect("task:category_tasks", category_id=category_id)
+    else:
+        form = TaskForm()
+
     context = {
         "form":form,
         "category": category,
@@ -61,13 +62,73 @@ def add_category(request):
             task_category = form.save(commit=False)
             task_category.user = user
             task_category.save()
-            return redirect("task:home")
-        
-    form = TaskCategoryForm()
+            return redirect(task_category.get_absolute_url())
+    else:   
+        form = TaskCategoryForm()
+
     context = {
         "form":form,
     }
     return render(request, "task/add_category.html", context)
+
+@login_required
+def category_detail(request, category_id):
+    category = get_object_or_404(TaskCategory, id=category_id)
+    context = {
+        "category":category,
+    }
+    return render(request, "task/category_detail.html", context)
+
+@login_required
+def edit_category(request, category_id):
+    category = get_object_or_404(TaskCategory, id=category_id)
+    if request.method == 'POST':
+        form = TaskCategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect(category.get_absolute_url())
+    else:
+        form = TaskCategoryForm(instance=category)
+    
+    context = {
+        "form":form,
+    }
+    return render(request, "task/edit_category.html", context)
+
+@login_required
+def delete_category(request, category_id):
+    category = get_object_or_404(TaskCategory, id=category_id)
+    if request.method == 'POST':
+        category.delete()
+        return redirect('task:home')
+    
+    context = {
+        "category":category,
+    }
+    return render(request, "task/delete_category.html", context)
+
+@login_required
+def toggle_task_completion(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+    user_points, created = UserPoints.objects.get_or_create(user=request.user)
+    
+    if task.is_done:
+        task.is_done = False
+        user_points.points -= 1
+    else:
+        task.is_done = True
+        user_points.points += 1
+        
+
+    task.save()
+    user_points.save()
+
+    # Check for achievements
+    achievements = Achievement.objects.filter(points_required__lte=user_points.points)
+    for achievement in achievements:
+        UserAchievement.objects.get_or_create(user=request.user, achievement=achievement)
+
+    return redirect('category_tasks', category_id=task.category.id)
 
 def detail_task(request):
     pass

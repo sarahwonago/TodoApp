@@ -18,7 +18,7 @@
         <h3>My Categories</h3>
         <ul>
             {% for my_cat in user_categories%}
-            <li>{{my_cat.name}} <span><button><a href="{% url 'task:add_task' my_cat.id %}">Add Tasks</a></button> <button><a href="{% url 'task:category_tasks' my_cat.id %}">View Tasks</a></button></span></li>
+            <li><a href="{% url 'task:category-detail' my_cat.id %}">{{my_cat.name}}</a> <span><button><a href="{% url 'task:add_task' my_cat.id %}">Add Tasks</a></button> <button><a href="{% url 'task:category_tasks' my_cat.id %}">View Tasks</a></button></span></li>
             {%empty%}
             <li>No categories specified</li>
             {%endfor%}
