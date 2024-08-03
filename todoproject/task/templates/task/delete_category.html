@@ -1,0 +1,14 @@
+{% extends 'task/_base.html' %}
+
+{% block title %}Delete Category{% endblock title %}
+
+{% block content %} 
+    <h1>Are you sure you want to delete Category "{{ category.name }}"?</h1>
+    <h5>!!! By deleting a category, you will delete all the tasks under it</h5>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">DELETE</button>
+    </form>
+
+{% endblock content %}

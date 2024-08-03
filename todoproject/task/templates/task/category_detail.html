@@ -1,0 +1,10 @@
+{% extends 'task/_base.html' %}
+
+{% block title %}Category{% endblock title %}
+
+{% block content %} 
+    <h2>Category: {{category.name}}</h2>
+    <p>Actions: <span><button><a href="{% url 'task:category-edit' category.id %}">UPDATE</a></button> <button><a href="{% url 'task:category-delete' category.id %}">DELETE</a></button></span></p>
+
+
+{% endblock content %}
